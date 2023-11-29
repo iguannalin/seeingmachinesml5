@@ -15,24 +15,16 @@ let poseNet;
 let poses = [];
 let x = 0;
 let y = 0;
-let url = `https://dweet.io/dweet/for/${GUID}`;
 let postData = { content:{"x":x,"y":y} };
 
 function makeCall() {
-  (async () => {
-    const rawResponse = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-        "Access-Control-Allow-Origin": "*"
-      },
-      body: JSON.stringify(postData)
-    });
-    const content = await rawResponse.json();
-  
-    console.log(content);
-  })();
+  fetch(`https://seasons986.pythonanywhere.com/sendcoordinates?x=${x}&y=${y}`,{headers: {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+    "Access-Control-Allow-Origin": "*"
+  }}).then((r)=>r.json()).then((d) => {
+    console.log({d});
+  });
 }
 
 function setup() {
